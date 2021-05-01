@@ -6,15 +6,20 @@ import java.util.Scanner;
 
 import entities.Employee;
 import entities.OutsourcedEmployee;
+import entities.relatorio.Composer;
+import entities.relatorio.Report;
+import net.sf.jasperreports.engine.JRException;
 
 public class Main {
 
 	public static void main(String[] args) {
 
 		Scanner sc = new Scanner(System.in);
-		List <Employee> emp = new ArrayList<>();
+		List<Employee> emp = new ArrayList<>();
+		List<Composer> rel = new ArrayList<>();
 
-		System.out.print("Enter the number of employes: ");
+
+		System.out.print("Enter the number of employees: ");
 		int n;
 		n = sc.nextInt();
 
@@ -31,20 +36,36 @@ public class Main {
 			double perhours = sc.nextDouble();
 			if (question == 'y') {
 				System.out.print("Additional charge: ");
-				double valuePerHour = sc.nextDouble();
-				Employee outemployee = new OutsourcedEmployee(name, hours, perhours, valuePerHour);
+				double Additional = sc.nextDouble();
+				Employee outemployee = new OutsourcedEmployee(name, hours, perhours, Additional);
+				Composer comp1 = new Composer(name, hours, perhours, Additional);
 				emp.add(outemployee);
+				rel.add(comp1);
 			} else {
-				Employee employee = new Employee(name,hours, perhours);
+				Employee employee = new Employee(name, hours, perhours);
+				Composer comp2 = new Composer(name, hours, perhours);
 				emp.add(employee);
+				rel.add(comp2);
 			}
 
 		}
 		sc.close();
+		Report relatorio = new Report();
+		
+		try {
+			
+			relatorio.gerarRelatorio(rel);
+		} catch(JRException e) {
+			e.printStackTrace();
+		}
+		
+		
 		System.out.println("");
 		System.out.println("Payments:");
-		for(Employee c:emp) {
-			System.out.println(c.getName()+" - $ "+String.format("%.2f",c.payment()));
+		for (Employee c : emp) {
+			System.out.println(c.getName() + " - $ " + String.format("%.2f", c.payment()));
 		}
+		
+		
 	}
 }
