@@ -44,7 +44,7 @@ public class Main {
 		System.out.println("");
 		System.out.println("Payments:");
 		for(Employee c:emp) {
-			System.out.println(c.getName()+" - $ "+String.format("%.2f",c.getValuePerHour()));
+			System.out.println(c.getName()+" - $ "+String.format("%.2f",c.payment()));
 		}
 	}
 }
