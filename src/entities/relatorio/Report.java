@@ -6,6 +6,7 @@ import java.util.List;
 
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
@@ -21,6 +22,7 @@ public class Report {
 		JasperReport report = JasperCompileManager.compileReport(fonte);
 		JasperPrint print = JasperFillManager.fillReport(report,null,new JRBeanCollectionDataSource(emp));
 		JasperViewer.viewReport(print,false);
+		JasperExportManager.exportReportToPdfFile(print,"C:\\Users\\Usuário\\Documents\\FolhaPagamento.pdf");
 		
 	}
 	
